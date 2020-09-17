@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dropzone</title>
+    {% load static %}
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        * {
+            font-family: 'Montserrat', sans-serif;
+            font-size: medium;
+            align-items: center;
+
+        }
+
+        #header {
+            border: 1px dotted red;
+            width: 500px;
+            min-height: 0px;
+            background-color: rgb(39, 139, 81);
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-left: 350px;
+        }
+
+        #dojo {
+            width: 50px;
+            height: 50px;
+            margin-right: 0px;
+        }
+
+        #header h1 {
+            color: white;
+            margin-right: 0px;
+        }
+
+        #header ul {
+            display: flex;
+            color: white;
+        }
+
+        #header li {
+            margin-right: 50px;
+            color: white;
+        }
+
+        #map {
+            border: 1px dotted red;
+            width: 500px;
+            min-height: 200px;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-left: 350px;
+        }
+        #address{
+            text-align: center;
+        }
+        #destination{
+            text-align: center;
+        }
+        .stations{
+            border: 1px dotted red;
+            width: 500px;
+            min-height: 0px;
+           
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-left: 350px;
+
+        }
+        .seleven{
+            width:100px;
+            height:100px;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div id="header">
+
+        <h1><a href="/review">Write a Review</a></h1>
+        <ul>
+            <li><a href="/login">Log In</a></li>
+            <li><a href="/signup">Sign Up</a></li>
+        </ul>
+
+    </div>
+    <form action="/travel" method = POST>
+        {% csrf_token %}
+    <p id = "destination">Where are you going? <input type="text" name="address"><input type="submit"></p>
+    </form>
+    <p id='address'>{{request.session.place}}</p>
+    <div id="map"></div>
+    <div class="stations">
+        <img class="seleven" src="{% static 'Valero.png' %}" alt="Valero">
+        <p>Valero</p><br>
+        <p>2.5 STAR</p>
+        <p>2 MILES</p>
+    </div>
+    <div class="stations">
+        <img class="seleven" src="{% static '7-Eleven.png' %}" alt="seveneleven">
+        <p>7-ELEVEN</p><br>
+        <p>3 STAR</p>
+        <p>5.1 MILES</p>
+    </div>
+    <div class="stations">
+        <img class="seleven" src="{% static 'QuikTrip.png' %}" alt="QT">
+        <p>QuikTrip</p><br>
+        <p>4.5 STAR</p>
+        <p>7.6 MILES</p>
+    </div>
+    <div class="stations">
+        <img class="seleven" src="{% static 'Bucees.png' %}" alt="Bucees">
+        <p>Buc-ees</p><br>
+        <p>4 STAR</p>
+        <p>8 MILES</p>
+    </div>
+    <div class="stations">
+        <img class="seleven" src="{% static 'starbucks.png' %}" alt="starbucks">
+        <p>Starbucks</p><br>
+        <p>4.9 STAR</p>
+        <p>15 MILES</p>
+    </div>
+    
+        <script>
+            // Initialize and add the map
+            function initMap() {
+                geocoder = new google.maps.Geocoder();
+                // The location of Uluru
+                // The map, centered at Uluru
+                // The marker, positioned at Uluru
+                codeAddress();
+            }
+
+            function codeAddress() {
+                var address = document.getElementById('address').innerHTML;
+                geocoder.geocode({ 'address': address }, function (results, status) {
+                    if (status == 'OK') {
+                        // map.setCenter(results[0].geometry.location);
+                        var map = new google.maps.Map(
+                            document.getElementById('map'), { zoom: 12, center: results[0].geometry.location });
+                        var marker = new google.maps.Marker({
+                            map: map,
+                            position: results[0].geometry.location
+                        });
+                    } else {
+                        alert('Geocode was not successful for the following reason: ' + status);
+                    }
+                });
+            }
+
+        </script>
+        <!--Load the API from the specified URL
+                * The async attribute allows the browser to render the page while the API loads
+                * The key parameter will contain your own API key (which is not needed for this tutorial)
+                * The callback parameter executes the initMap() function
+                -->
+                <script defer
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBEuF-MbVR-jWSXTl11W8fgb66MVnyz9HA&callback=initMap">
+                </script>
+      
+            
+    </div>
+</body>
+
+</html>

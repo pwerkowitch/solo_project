@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Dropzone</title>
+        <link rel="stylesheet" href="style.css">
+        
+        <style>
+*{
+    font-family: 'Montserrat', sans-serif;
+    font-size: medium;
+    align-items: center;
+    
+}
+
+#header{
+    width:500px;
+    min-height: 0px;
+    background-color:rgb(39, 139, 81);
+    padding:10px;
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-left:380px;
+    text-align: center;
+}
+#dojo{
+    width: 50px;
+    height:50px;
+    margin-right: 0px;
+}
+#header h1{
+    color:white;
+    margin-right: 0px;
+}
+#header ul{
+    display:flex;
+    color:white;
+}
+#header li{
+    margin-right:50px;
+    color:white;
+    ;
+}
+#map{
+    
+    width:500px;
+    min-height: 200px;
+    
+    padding:10px;
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-left:350px;
+}
+#review{
+    text-align: center
+    
+}
+ul{
+    list-style-type: none;
+    
+}
+li{
+    display:inline-block;
+    align-items: center;
+    margin-right:5px;
+}
+        </style>
+</head>
+<body>
+    <div id="header">
+        
+        <h1>{{request.session.place}}</h1>
+           
+    </div>
+    <div id="review">
+        <ul>
+            <li><button type="button">ONE STAR</button></li>
+            <li><button type="button">TWO STAR</button></li>
+            <li><button type="button">THREE STAR</button></li>
+            <li><button type="button">FOUR STAR</button></li>
+            <li><button type="button">FIVE STAR</button></li>
+        </ul>
+        <form action="/action_page.php" id="comment">
+            
+            
+          </form>
+          
+          <textarea name="comment" form="usrform" rows="4" cols="50">Comments...</textarea><br>
+          <input type="submit">
+          
+    </div>
+</body>
+</html>
